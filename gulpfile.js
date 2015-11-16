@@ -49,5 +49,5 @@ gulp.task('jadelint', function () {
 gulp.task('inspect', ['jshint', 'test', 'jadelint']);
 
 gulp.task('default', ['inspect'], function () {
-  gulp.run('serve');
+  gulp.start(['serve']);
 });
