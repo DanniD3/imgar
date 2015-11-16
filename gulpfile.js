@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+// var stylish = require('jshint-stylish');
 var mocha = require('gulp-mocha');
 var jadelint = require('gulp-jadelint');
 var nodemon = require('gulp-nodemon');
@@ -12,8 +12,16 @@ gulp.task('serve', function () {
   livereload.listen();
   nodemon({ script: 'bin/www',
             ext: 'js',
-            env: { 'NODE_ENV': 'development', DEBUG: 'lausn:*' },
-            watch: ['bin/www', 'app.js','routes/**/*', 'views/**/*']
+            env: {
+              'NODE_ENV': 'development',
+              DEBUG: 'imgar:*'
+            },
+            watch: [
+              'bin/www',
+              '*.js',
+              'routes/**/*.js',
+              'views/**/*.js'
+            ]
           })
     .on('restart', function() {
       livereload.changed();
@@ -23,7 +31,8 @@ gulp.task('serve', function () {
 gulp.task('jshint', function () {
   return gulp.src(['./*.js', './routes/**/*.js', './lib/**/*.js'])
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
+    // .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
 });
 
@@ -39,4 +48,6 @@ gulp.task('jadelint', function () {
 
 gulp.task('inspect', ['jshint', 'test', 'jadelint']);
 
-gulp.task('default', ['inspect', 'serve']);
+gulp.task('default', ['inspect'], function () {
+  gulp.run('serve');
+});
