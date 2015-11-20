@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p Welcome to #{title}
+
+	a(href='/upload') Upload Here
+
+	h2 Login
+	form(method='post')
+		label(for='user')
+			| Username: 
+			input(name='user').user
+		label(for='pwd')
+			| Password: 
+			input(type='password', name='pwd').pwd
+		button(type='submit') Login
+	p Outside form
+	if user
+		p= user
+	if pwd
+		p= pwd
+	if err
+		p= err

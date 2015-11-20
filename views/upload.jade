@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	h2 Upload
+	form(enctype='multipart/form-data', method='post')
+		label(for='img')
+			| Password: 
+			input(type='file', name='img').img
+		button(type='submit') Upload
+	p Outside form
+	if img
+		p= img
+	if err
+		p= err

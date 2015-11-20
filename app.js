@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./routes/routes');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -60,7 +59,6 @@ app.use(function(req, res, next) {
 
 // apply routes
 app.use('/', routes);
-app.use('/users', users);
 
 /*jshint unused:false*/
 
