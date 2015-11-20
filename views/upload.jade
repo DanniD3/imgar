@@ -8,6 +8,8 @@ block content
 			input(type='file', name='img').img
 	p Outside form
 	if img
-		p= img
+		img(src=img) 
+	if buffer
+		img(src='data:image/png;base64,#{buffer}')
 	if err
 		p= err
