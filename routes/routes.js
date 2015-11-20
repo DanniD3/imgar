@@ -47,6 +47,7 @@ router.get('/upload', function(req, res, next) {
 
 router.post('/upload', function(req, res, next) {
 	/*jshint unused:false*/
+	/*jshint forin: false */
 
 	var img = xss(req.body.img);
 
@@ -55,9 +56,8 @@ router.post('/upload', function(req, res, next) {
 		reqstuff.push(att);
 	}
 	console.log(reqstuff.sort());
-	// console.log(req.body);
-	// console.log(req.files);
-	// console.log(req);
+	console.log(req.body);
+	console.log(req.files);
 	// console.log(img.files[0], 'This is the img');
 
 	res.render('upload', {

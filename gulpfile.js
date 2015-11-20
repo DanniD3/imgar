@@ -14,9 +14,6 @@ gulp.task('serve', ['set-env'], function () {
 	nodemon({ 
 		script: 'bin/www',
 		ext: 'js',
-		env: {
-			DEBUG: 'imgar:*'
-		},
 		watch: [
 			'bin/www',
 			'*.js',
