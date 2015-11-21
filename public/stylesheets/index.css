@@ -1,10 +1,6 @@
 * {
-<<<<<<< HEAD
-	border: solid 1px;
-	border-color: #F38630;
-=======
+	border: solid 1px #F38630;
 	/*border: solid 1px;*/
->>>>>>> origin/master
 }
 body {
 	background-color: #A7DBD8;
