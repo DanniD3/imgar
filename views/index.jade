@@ -1,24 +1,35 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-
-	a(href='/upload') Upload Here
-
-	h2 Login
-	form(method='post')
-		label(for='user')
-			| Username: 
-			input(name='user').user
-		label(for='pwd')
-			| Password: 
-			input(type='password', name='pwd').pwd
-		button(type='submit') Login
-	p Outside form
-	if user
-		p= user
-	if pwd
-		p= pwd
-	if err
-		p= err
+	.menu
+		.logo
+			p Placeholder Logo
+		h1 Welcome to #{title}
+		.items
+			p Placeholder
+	.wrapper
+		h2 Login
+		form(method='post', action='/login')
+			p
+				label(for='user')
+					| Username: 
+					input(name='user').user
+			p
+				label(for='pwd')
+					| Password: 
+					input(type='password', name='pwd').pwd
+			button(type='submit') Login
+		h2 Upload
+		form(enctype='multipart/form-data', method='post', action='/upload')
+			button(type='submit') Upload
+			label(for='img')
+				input(type='file', name='img').img
+		p Outside form
+		if vars.user
+			p= vars.user
+		if vars.img
+			img(src=vars.img.path) 
+		if vars.buffer
+			img(src='data:image/png;base64,#{vars.buffer}')
+		if vars.err
+			p= vars.err

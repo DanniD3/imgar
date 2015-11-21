@@ -1,8 +1,33 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+	border: solid 1px;
 }
-
+body {
+	margin: 0;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+}
+.menu {
+	display: flex;
+	justify-content: space-between;
+}
+.menu h1 {
+	margin: 0;
+}
+.menu .logo, .items {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.menu div p {
+	margin: 0;
+}
+.wrapper {
+	max-width: 600px;
+	margin: 0 auto;
+}
+img {
+	position: relative;
+	width: 100%;
 }
