@@ -1,5 +1,5 @@
 * {
-	border: solid 1px;
+	/*border: solid 1px;*/
 }
 body {
 	margin: 0;
@@ -26,6 +26,11 @@ a {
 .wrapper {
 	max-width: 600px;
 	margin: 0 auto;
+}
+.account .form {
+	display: table-cell;
+	width: 50%;
+	box-sizing: border-box;
 }
 img {
 	position: relative;

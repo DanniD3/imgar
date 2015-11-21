@@ -1,5 +1,32 @@
 extends layout
 
+block account
+	.account
+		.form
+			h2 Login
+			form(method='post', action='/login')
+				p
+					label(for='usr')
+						| Username: 
+						input(name='usr').usr
+				p
+					label(for='pwd')
+						| Password: 
+						input(type='password', name='pwd').pwd
+				button(type='submit') Login
+		.form
+			h2 Register
+			form(method='post', action='/register')
+				p
+					label(for='usr')
+						| Username: 
+						input(name='usr').usr
+				p
+					label(for='pwd')
+						| Password: 
+						input(type='password', name='pwd').pwd
+				button(type='submit') Register
+
 block content
 	.menu
 		.logo
@@ -8,25 +35,18 @@ block content
 		.items
 			p Placeholder
 	.wrapper
-		h2 Login
-		form(method='post', action='/login')
-			p
-				label(for='user')
-					| Username: 
-					input(name='user').user
-			p
-				label(for='pwd')
-					| Password: 
-					input(type='password', name='pwd').pwd
-			button(type='submit') Login
+		if vars.user
+			p You are logged in as #{vars.user}
+			form(method='get', action='/logout')
+				button(type='submit') Logout
+		else
+			block account
 		h2 Upload
 		form(enctype='multipart/form-data', method='post', action='/upload')
 			button(type='submit') Upload
 			label(for='img')
 				input(type='file', name='img').img
 		p Outside form
-		if vars.user
-			p= vars.user
 		if vars.img
 			img(src=vars.img.path) 
 		if vars.buffer

@@ -63,6 +63,12 @@ router.get('/', displayIndex);
 /* POST Login. */
 router.post('/login', loginHandler, displayIndex);
 
+/* POST Register. */
+router.post('/register', registerHandler, displayIndex);
+
+/* GET Logout. */
+router.get('/logout', logout);
+
 /* POST Upload */
 router.post('/upload', upload.single('img'), 
 	uploadHandler, displayIndex);
@@ -75,21 +81,20 @@ function displayIndex(req, res, next) {
 	/*jshint unused:false*/
 	
 	// Initialize user variables
-	console.log(req.session);
 	var vars = {};
 	if (req.session.user) {
-		vars.user = req.session.user;
+		vars.user = req.session.user.username;
+		console.log(req.session.user);
 	}
 	if (req.session.img) {
-		// var img = req.session.img;
-		// vars.img = img.path;
-		// vars.buffer = img.buffer.toString('base64');
 		vars.buffer = req.session.img;
+		req.session.img = null;
 	}
 	if (req.session.err) {
 		vars.err = req.session.err;
+		req.session.err = null;
 	}
-	console.log(vars);
+
 	// Display
 	res.render('index', {
 		title: 'IMGAR VEF2015',
@@ -101,21 +106,58 @@ function displayIndex(req, res, next) {
 function loginHandler(req, res, next) {
 	/*jshint unused:false*/
 
-	var username = xss(req.body.user);
+	var usr = xss(req.body.usr);
 	var pwd = xss(req.body.pwd);
 
-	users.auth(username, pwd, function(err, user) {
+	users.auth(usr, pwd, function(err, user) {
 		if (err) {
 			console.log(err);
 			req.session.err = err;
+			res.redirect('/');
 		}
 
 		if (user) {
 			req.session.regenerate(function (){
 				req.session.user = user;
+				res.redirect('/');
 			});
 		}
-		req.session.user = username;
+	});
+}
+
+function registerHandler(req, res, next) {
+	/*jshint unused:false*/
+
+	var usr = xss(req.body.usr);
+	var pwd = xss(req.body.pwd);
+
+	users.createUser(usr, pwd, function(err, status) {
+		if (err || !status) {
+			console.log(err);
+			req.session.err = err;
+			res.redirect('/');
+		}
+
+		users.auth(usr, pwd, function(err, user) {
+			if (err) {
+				console.log(err);
+				req.session.err = err;
+				res.redirect('/');
+			}
+
+			if (user) {
+				req.session.regenerate(function (){
+					req.session.user = user;
+					res.redirect('/');
+				});
+			}
+		});
+	});
+}
+
+function logout(req, res, next) {
+	/*jshint unused:false*/
+	req.session.destroy(function(){
 		res.redirect('/');
 	});
 }
@@ -125,8 +167,8 @@ function uploadHandler(req, res, next) {
 
 	var img = req.file;
 	var imgData = img.buffer.toString('base64');
-
 	console.log(img);
+
 	req.session.img = imgData;
 	res.redirect('/');
 }
