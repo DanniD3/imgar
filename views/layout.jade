@@ -1,14 +1,15 @@
 doctype html
 html(lang='is')
 	head
-		title= title
+		title IMGAR VEF2015
+		link(rel='stylesheet', href='/stylesheets/layout.css')
 		link(rel='stylesheet', href=cssSrc)
 		script(text='javascript', src=jsSrc)
 	body
 		.menu
 			.logo
 				p Placeholder Logo
-			h1 Welcome to #{title}
+			h1 Welcome to IMGAR
 			.items
 				p Placeholder
 		.wrapper
@@ -18,7 +19,7 @@ html(lang='is')
 					button(type='submit') Logout
 			else
 				.account
-					.form
+					.formLogin
 						h2 Login
 						form(method='post', action='/login')
 							p
@@ -30,7 +31,7 @@ html(lang='is')
 									| Password: 
 									input(type='password', name='pwd').pwd
 							button(type='submit') Login
-					.form
+					.formRegister
 						h2 Register
 						form(method='post', action='/register')
 							p

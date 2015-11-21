@@ -79,7 +79,6 @@ function displayIndex(req, res, next) {
 
 	// Display
 	res.render('index', {
-		title: 'IMGAR VEF2015',
 		cssSrc: '/stylesheets/index.css',
 		vars: vars
 	});
@@ -116,13 +115,14 @@ function fileHandler(req, res, next) {
 		if (err) {
 			console.log(err);
 			vars.err = err;
+		} else if (result.length === 0) {
+			vars.err = new Error('No such file exists!');
 		} else {
 			vars.buffer = new Buffer(result[0].data)
 				.toString('base64');
 		}
 		res.render('file', {
-			title: 'IMGAR VEF2015',
-			cssSrc: '/stylesheets/index.css',
+			cssSrc: '/stylesheets/file.css',
 			vars: vars
 		});
 	});

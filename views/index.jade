@@ -6,8 +6,8 @@ block content
 		button(type='submit') Upload
 		label(for='img')
 			input(type='file', name='img').img
-	p Outside form
 	if vars.err
-		p Upload Failed, The File Already Exists
+		p Upload Failed:
+		| #{vars.err}
 	if vars.url
 		a(href=vars.url) #{vars.url}
