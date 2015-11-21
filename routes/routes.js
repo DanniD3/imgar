@@ -6,11 +6,9 @@
 
 var express = require('express');
 var router = express.Router();
-var xss = require('xss');
 var multer  = require('multer');
 
-// var dbManager = require('../lib/dbManager');
-var users = require('../lib/users');
+var dbManager = require('../lib/dbManager');
 
 /////////////////////////////////////
 /*        UPLOAD & STORAGE         */
@@ -52,6 +50,83 @@ var upload = multer({
 	storage: multer.memoryStorage()
 });
 
+/////////////////////////////////////
+/*           MIDDLEWARES           */
+/////////////////////////////////////
+
+var userManager = require('../middleware/userManager');
+
+var loginHandler = userManager.loginHandler;
+var registerHandler = userManager.registerHandler;
+var logout = userManager.logout;
+
+function displayIndex(req, res, next) {
+	/*jshint unused:false*/
+	
+	// Initialize user variables
+	var vars = {};
+	if (req.session.user) {
+		vars.user = req.session.user.username;
+	}
+	if (req.session.url) {
+		vars.url = req.session.url;
+		req.session.url = null;
+	}
+	if (req.session.err) {
+		vars.err = JSON.stringify(req.session.err);
+		req.session.err = null;
+	}
+
+	// Display
+	res.render('index', {
+		title: 'IMGAR VEF2015',
+		cssSrc: '/stylesheets/index.css',
+		vars: vars
+	});
+}
+
+function uploadHandler(req, res, next) {
+	/*jshint unused:false*/
+	var img = req.file;
+	var name = img.originalname.toLowerCase();
+	var data = JSON.stringify(img.buffer);
+
+	dbManager.store(name, data, function(err, status) {
+		if (err || !status) {
+			console.log(err);
+			req.session.err = err;
+		} else {
+			// Generate link
+			req.session.url = 
+				req.protocol + '://' + req.get('host') +
+				'/file?name=' + name;
+		}
+		res.redirect('/');
+	});
+}
+
+function fileHandler(req, res, next) {
+	/*jshint unused:false*/
+
+	var filename = req.query.name;
+
+	dbManager.get(filename, function(err, result) {
+		var vars = {};
+
+		if (err) {
+			console.log(err);
+			vars.err = err;
+		} else {
+			vars.buffer = new Buffer(result[0].data)
+				.toString('base64');
+		}
+		res.render('file', {
+			title: 'IMGAR VEF2015',
+			cssSrc: '/stylesheets/index.css',
+			vars: vars
+		});
+	});
+}
 
 /////////////////////////////////////
 /*             ROUTES              */
@@ -73,104 +148,7 @@ router.get('/logout', logout);
 router.post('/upload', upload.single('img'), 
 	uploadHandler, displayIndex);
 
-/////////////////////////////////////
-/*           MIDDLEWARES           */
-/////////////////////////////////////
-
-function displayIndex(req, res, next) {
-	/*jshint unused:false*/
-	
-	// Initialize user variables
-	var vars = {};
-	if (req.session.user) {
-		vars.user = req.session.user.username;
-		console.log(req.session.user);
-	}
-	if (req.session.img) {
-		vars.buffer = req.session.img;
-		req.session.img = null;
-	}
-	if (req.session.err) {
-		vars.err = req.session.err;
-		req.session.err = null;
-	}
-
-	// Display
-	res.render('index', {
-		title: 'IMGAR VEF2015',
-		cssSrc: '/stylesheets/index.css',
-		vars: vars
-	});
-}
-
-function loginHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var usr = xss(req.body.usr);
-	var pwd = xss(req.body.pwd);
-
-	users.auth(usr, pwd, function(err, user) {
-		if (err) {
-			console.log(err);
-			req.session.err = err;
-			res.redirect('/');
-		}
-
-		if (user) {
-			req.session.regenerate(function (){
-				req.session.user = user;
-				res.redirect('/');
-			});
-		}
-	});
-}
-
-function registerHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var usr = xss(req.body.usr);
-	var pwd = xss(req.body.pwd);
-
-	users.createUser(usr, pwd, function(err, status) {
-		if (err || !status) {
-			console.log(err);
-			req.session.err = err;
-			res.redirect('/');
-		}
-
-		users.auth(usr, pwd, function(err, user) {
-			if (err) {
-				console.log(err);
-				req.session.err = err;
-				res.redirect('/');
-			}
-
-			if (user) {
-				req.session.regenerate(function (){
-					req.session.user = user;
-					res.redirect('/');
-				});
-			}
-		});
-	});
-}
-
-function logout(req, res, next) {
-	/*jshint unused:false*/
-	req.session.destroy(function(){
-		res.redirect('/');
-	});
-}
-
-function uploadHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var img = req.file;
-	var imgData = img.buffer.toString('base64');
-	console.log(img);
-
-	req.session.img = imgData;
-	res.redirect('/');
-}
+/* GET File. */
+router.get('/file', fileHandler);
 
 module.exports = router;
