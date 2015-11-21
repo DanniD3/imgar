@@ -11,12 +11,15 @@ a {
 	color: #00B7FF;
 }
 .menu {
-	background-color: #69D2E7;
+	position: relative;
+	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
+	background-color: #69D2E7;
+	box-shadow: 0 0 1px 0;
 }
 .menu h1 {
-	margin: 0;
+	margin: 5px 0;
 }
 .menu .logo, .items {
 	display: flex;
@@ -27,10 +30,14 @@ a {
 	margin: 0;
 }
 .wrapper {
-	padding: 5%;
+	position: relative;
 	background-color: #E0E4CC;
+	box-shadow: 0 0 1px 0;
 	max-width: 600px;
 	margin: 0 auto;
+}
+.wrapper > * {
+	padding: 5%;
 }
 .account {
 	display: flex;

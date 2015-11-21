@@ -8,8 +8,6 @@ var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
 
-var dbManager = require('../lib/dbManager');
-
 /////////////////////////////////////
 /*        UPLOAD & STORAGE         */
 /////////////////////////////////////
@@ -54,11 +52,15 @@ var upload = multer({
 /*           MIDDLEWARES           */
 /////////////////////////////////////
 
-var userManager = require('../middleware/userManager');
+var userRoutes = require('../middleware/userRoutes');
+var dbRoutes = require('../middleware/dbRoutes');
 
-var loginHandler = userManager.loginHandler;
-var registerHandler = userManager.registerHandler;
-var logout = userManager.logout;
+var loginHandler = userRoutes.loginHandler;
+var registerHandler = userRoutes.registerHandler;
+var logout = userRoutes.logout;
+
+var uploadHandler = dbRoutes.uploadHandler;
+var fileHandler = dbRoutes.fileHandler;
 
 function displayIndex(req, res, next) {
 	/*jshint unused:false*/
@@ -84,50 +86,6 @@ function displayIndex(req, res, next) {
 	});
 }
 
-function uploadHandler(req, res, next) {
-	/*jshint unused:false*/
-	var img = req.file;
-	var name = img.originalname.toLowerCase();
-	var data = JSON.stringify(img.buffer);
-
-	dbManager.store(name, data, function(err, status) {
-		if (err || !status) {
-			console.log(err);
-			req.session.err = err;
-		} else {
-			// Generate link
-			req.session.url = 
-				req.protocol + '://' + req.get('host') +
-				'/file?name=' + name;
-		}
-		res.redirect('/');
-	});
-}
-
-function fileHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var filename = req.query.name;
-
-	dbManager.get(filename, function(err, result) {
-		var vars = {};
-
-		if (err) {
-			console.log(err);
-			vars.err = err;
-		} else if (result.length === 0) {
-			vars.err = new Error('No such file exists!');
-		} else {
-			vars.buffer = new Buffer(result[0].data)
-				.toString('base64');
-		}
-		res.render('file', {
-			cssSrc: '/stylesheets/file.css',
-			vars: vars
-		});
-	});
-}
-
 /////////////////////////////////////
 /*             ROUTES              */
 /////////////////////////////////////
@@ -136,17 +94,16 @@ function fileHandler(req, res, next) {
 router.get('/', displayIndex);
 
 /* POST Login. */
-router.post('/login', loginHandler, displayIndex);
+router.post('/login', loginHandler);
 
 /* POST Register. */
-router.post('/register', registerHandler, displayIndex);
+router.post('/register', registerHandler);
 
 /* GET Logout. */
 router.get('/logout', logout);
 
 /* POST Upload */
-router.post('/upload', upload.single('img'), 
-	uploadHandler, displayIndex);
+router.post('/upload', upload.single('img'), uploadHandler);
 
 /* GET File. */
 router.get('/file', fileHandler);
