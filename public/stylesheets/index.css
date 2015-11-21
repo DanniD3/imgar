@@ -1,6 +1,10 @@
 * {
+<<<<<<< HEAD
 	border: solid 1px;
 	border-color: #F38630;
+=======
+	/*border: solid 1px;*/
+>>>>>>> origin/master
 }
 body {
 	background-color: #A7DBD8;
@@ -31,6 +35,11 @@ a {
 	background-color: #E0E4CC;
 	max-width: 600px;
 	margin: 0 auto;
+}
+.account .form {
+	display: table-cell;
+	width: 50%;
+	box-sizing: border-box;
 }
 img {
 	border: solid 4px;
