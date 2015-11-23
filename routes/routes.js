@@ -6,11 +6,7 @@
 
 var express = require('express');
 var router = express.Router();
-var xss = require('xss');
 var multer  = require('multer');
-
-// var dbManager = require('../lib/dbManager');
-var users = require('../lib/users');
 
 /////////////////////////////////////
 /*        UPLOAD & STORAGE         */
@@ -52,6 +48,43 @@ var upload = multer({
 	storage: multer.memoryStorage()
 });
 
+/////////////////////////////////////
+/*           MIDDLEWARES           */
+/////////////////////////////////////
+
+var userRoutes = require('../middleware/userRoutes');
+var dbRoutes = require('../middleware/dbRoutes');
+
+var loginHandler = userRoutes.loginHandler;
+var registerHandler = userRoutes.registerHandler;
+var logout = userRoutes.logout;
+
+var uploadHandler = dbRoutes.uploadHandler;
+var fileHandler = dbRoutes.fileHandler;
+
+function displayIndex(req, res, next) {
+	/*jshint unused:false*/
+	
+	// Initialize user variables
+	var vars = {};
+	if (req.session.user) {
+		vars.user = req.session.user.username;
+	}
+	if (req.session.url) {
+		vars.url = req.session.url;
+		req.session.url = null;
+	}
+	if (req.session.err) {
+		vars.err = JSON.stringify(req.session.err);
+		req.session.err = null;
+	}
+
+	// Display
+	res.render('index', {
+		cssSrc: '/stylesheets/index.css',
+		vars: vars
+	});
+}
 
 /////////////////////////////////////
 /*             ROUTES              */
@@ -61,116 +94,18 @@ var upload = multer({
 router.get('/', displayIndex);
 
 /* POST Login. */
-router.post('/login', loginHandler, displayIndex);
+router.post('/login', loginHandler);
 
 /* POST Register. */
-router.post('/register', registerHandler, displayIndex);
+router.post('/register', registerHandler);
 
 /* GET Logout. */
 router.get('/logout', logout);
 
 /* POST Upload */
-router.post('/upload', upload.single('img'), 
-	uploadHandler, displayIndex);
+router.post('/upload', upload.single('img'), uploadHandler);
 
-/////////////////////////////////////
-/*           MIDDLEWARES           */
-/////////////////////////////////////
-
-function displayIndex(req, res, next) {
-	/*jshint unused:false*/
-	
-	// Initialize user variables
-	var vars = {};
-	if (req.session.user) {
-		vars.user = req.session.user.username;
-		console.log(req.session.user);
-	}
-	if (req.session.img) {
-		vars.buffer = req.session.img;
-		req.session.img = null;
-	}
-	if (req.session.err) {
-		vars.err = req.session.err;
-		req.session.err = null;
-	}
-
-	// Display
-	res.render('index', {
-		title: 'IMGAR VEF2015',
-		cssSrc: '/stylesheets/index.css',
-		vars: vars
-	});
-}
-
-function loginHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var usr = xss(req.body.usr);
-	var pwd = xss(req.body.pwd);
-
-	users.auth(usr, pwd, function(err, user) {
-		if (err) {
-			console.log(err);
-			req.session.err = err;
-			res.redirect('/');
-		}
-
-		if (user) {
-			req.session.regenerate(function (){
-				req.session.user = user;
-				res.redirect('/');
-			});
-		}
-	});
-}
-
-function registerHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var usr = xss(req.body.usr);
-	var pwd = xss(req.body.pwd);
-
-	users.createUser(usr, pwd, function(err, status) {
-		if (err || !status) {
-			console.log(err);
-			req.session.err = err;
-			res.redirect('/');
-		}
-
-		users.auth(usr, pwd, function(err, user) {
-			if (err) {
-				console.log(err);
-				req.session.err = err;
-				res.redirect('/');
-			}
-
-			if (user) {
-				req.session.regenerate(function (){
-					req.session.user = user;
-					res.redirect('/');
-				});
-			}
-		});
-	});
-}
-
-function logout(req, res, next) {
-	/*jshint unused:false*/
-	req.session.destroy(function(){
-		res.redirect('/');
-	});
-}
-
-function uploadHandler(req, res, next) {
-	/*jshint unused:false*/
-
-	var img = req.file;
-	var imgData = img.buffer.toString('base64');
-	console.log(img);
-
-	req.session.img = imgData;
-	res.redirect('/');
-}
+/* GET File. */
+router.get('/file', fileHandler);
 
 module.exports = router;
