@@ -16,12 +16,14 @@
     "jade": "~1.11.0",
     "moment": "^2.10.6",
     "morgan": "~1.6.1",
+    "multer": "^1.1.0",
     "pg": "^4.4.3",
     "xss": "^0.2.7"
   },
   "devDependencies": {
     "chai": "^3.3.0",
     "gulp": "^3.9.0",
+    "gulp-env": "^0.2.0",
     "gulp-jadelint": "^0.1.0",
     "gulp-jshint": "^1.11.2",
     "gulp-livereload": "^3.8.1",

@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h2 Upload
+	form(enctype='multipart/form-data', method='post', action='/upload')
+		button(type='submit') Upload
+		label(for='img')
+			input(type='file', name='img').img
+	if vars.err
+		p Upload Failed:
+		| #{vars.err}
+	if vars.url
+		a(href=vars.url) #{vars.url}
