@@ -21,7 +21,7 @@ a {
 .menu h1 {
 	margin: 5px 0;
 }
-.menu .logo .items {
+.menu .logo, .items {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
