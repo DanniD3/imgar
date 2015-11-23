@@ -3,7 +3,7 @@
 	/*border: solid 1px;*/
 }
 body {
-	background-color: #A7DBD8;
+	background-color: #FFB981;
 	margin: 0;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -15,7 +15,7 @@ a {
 	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
-	background-color: #69D2E7;
+	background-color: #FFA258;
 	box-shadow: 0 0 1px 0;
 }
 .menu h1 {
@@ -31,7 +31,7 @@ a {
 }
 .wrapper {
 	position: relative;
-	background-color: #E0E4CC;
+	background-color: #60BFBB;
 	box-shadow: 0 0 1px 0;
 	max-width: 600px;
 	margin: 0 auto;
