@@ -11,6 +11,7 @@ a {
 	color: #00B7FF;
 }
 .menu {
+	max-height: 42px;
 	position: relative;
 	margin-bottom: 10px;
 	display: flex;
@@ -22,9 +23,13 @@ a {
 	margin: 5px 0;
 }
 .menu .logo, .items {
+	max-height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+.menu .logo img {
+	max-height: 42px;
 }
 .menu div p {
 	margin: 0;
@@ -39,10 +44,14 @@ a {
 .wrapper > * {
 	padding: 5%;
 }
-.account {
+.account{
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+} 
+
+.account:hover{
+	display: none;
 }
 .account .form {
 	width: 50%;
