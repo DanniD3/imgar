@@ -1,12 +1,18 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-	// button.addEventListener('click', function () {
-	// 	window.location.replace('./form');
-	// });
 	var items = document.querySelector('.items');
-	var hidden = document.querySelector('.hidden');
+	var account = document.querySelector('.account');
 	items.addEventListener('click', function () {
-		hidden.style.display = 'block';
+		account.style.display = 'flex';
 	});
+
+	window.addEventListener('click', function (e) {
+		if (account.style.display === 'flex') {
+			if (e.srcElement.innerHTML
+				.search(/^\<div/g) !== -1) {
+				account.style.display = 'none';
+			}
+		}
+	})
 });
