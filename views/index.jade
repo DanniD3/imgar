@@ -1,9 +1,10 @@
 extends layout
 
 block content
+	.err
 	h2 Upload
 	form(enctype='multipart/form-data', method='post', action='/upload')
-		button(type='submit') Upload
+		button(type='submit').upload Upload
 		label(for='img')
 			input(type='file', name='img').img
 	if vars.err
