@@ -82,6 +82,7 @@ function displayIndex(req, res, next) {
 	// Display
 	res.render('index', {
 		cssSrc: '/stylesheets/index.css',
+		jsSrc: '/javascripts/index.js',
 		vars: vars
 	});
 }

@@ -49,11 +49,10 @@ a {
 	flex-direction: row;
 	justify-content: center;
 } 
-
-.account:hover{
-	display: none;
-}
 .account .form {
 	width: 50%;
 	box-sizing: border-box;
+}
+.hidden {
+	display: none;
 }
