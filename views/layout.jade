@@ -4,11 +4,12 @@ html(lang='is')
 		title IMGAR VEF2015
 		link(rel='stylesheet', href='/stylesheets/layout.css')
 		link(rel='stylesheet', href=cssSrc)
+		script(text='javascript', src='/javascripts/layout.js')
 		script(text='javascript', src=jsSrc)
 	body
 		.menu
 			.logo
-				img(src='/images/imgar-logo.png', alt='imgar-logo')
+				img(src='/images/imgar-logo.png', alt='imgar-logo').logoImg
 			h1 Welcome to IMGAR
 			.items
 				if vars.user
