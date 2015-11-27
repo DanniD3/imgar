@@ -11,7 +11,7 @@ a {
 	color: #00B7FF;
 }
 .menu {
-	max-height: 42px;
+	max-height: 20%px;
 	position: relative;
 	margin-bottom: 10px;
 	display: flex;

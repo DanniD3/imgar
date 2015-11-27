@@ -6,3 +6,11 @@ block content
 		img(src='data:image/png;base64,#{vars.buffer}')
 	if vars.err
 		p.err= vars.err
+	else
+		h1 Comments
+
+		if vars.user
+			form(method='post')
+			label
+				textarea(name='comment', id='comment', placeholder='Give comment :D')
+			button Submit Comment
