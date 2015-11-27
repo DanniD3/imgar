@@ -9,11 +9,12 @@
   CONSTRAINT users_username_key UNIQUE (username)
 );
 
-CREATE TABLE imgs
+CREATE TABLE public.imgs
 (
-  name character varying NOT NULL,
-  data text NOT NULL,
+  name character varying(256) NOT NULL,
+  data json NOT NULL,
   date timestamp with time zone,
-  CONSTRAINT imgs_name_pkey PRIMARY KEY (name),
-  CONSTRAINT imgs_data_unique UNIQUE (data)
+  hash character varying(256),
+  salt character varying(256),
+  CONSTRAINT imgs_name_pkey PRIMARY KEY (name)
 );
