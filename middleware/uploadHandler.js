@@ -26,12 +26,13 @@ module.exports = function (req, res, next) {
 		if (err || !hash) {
 			console.log(err);
 			req.session.err = err;
+			res.redirect('/');
 		} else {
 			// Generate link
 			req.session.url = 
 				req.protocol + '://' + req.get('host') +
 				'/' + hash;
+			res.redirect('/' + hash);
 		}
-		res.redirect('/' + hash);
 	});
 }

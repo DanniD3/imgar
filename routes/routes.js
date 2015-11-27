@@ -84,11 +84,6 @@ function displayIndex(req, res, next) {
 	});
 }
 
-// function indexRedirect(req, res, next) {
-// 	jshint unused:false
-// 	res.redirect('/');
-// }
-
 /////////////////////////////////////
 /*             ROUTES              */
 /////////////////////////////////////

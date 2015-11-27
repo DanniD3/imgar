@@ -29,6 +29,7 @@ module.exports = function (req, res, next) {
     }
     res.render('file', {
       cssSrc: '/stylesheets/file.css',
+      jsSrc: '/javascripts/file.js',
       vars: vars
     });
   });
