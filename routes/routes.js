@@ -53,14 +53,11 @@ var upload = multer({
 /////////////////////////////////////
 
 var userRoutes = require('../middleware/userRoutes');
-var dbRoutes = require('../middleware/dbRoutes');
+var uploadHandler = require('../middleware/uploadHandler');
 
 var loginHandler = userRoutes.loginHandler;
 var registerHandler = userRoutes.registerHandler;
 var logout = userRoutes.logout;
-
-var uploadHandler = dbRoutes.uploadHandler;
-var fileHandler = dbRoutes.fileHandler;
 
 function displayIndex(req, res, next) {
 	/*jshint unused:false*/
@@ -87,10 +84,10 @@ function displayIndex(req, res, next) {
 	});
 }
 
-function indexRedirect(req, res, next) {
-	/*jshint unused:false*/
-	res.redirect('/');
-}
+// function indexRedirect(req, res, next) {
+// 	jshint unused:false
+// 	res.redirect('/');
+// }
 
 /////////////////////////////////////
 /*             ROUTES              */
@@ -110,8 +107,5 @@ router.get('/logout', logout);
 
 /* POST Upload */
 router.post('/upload', upload.single('img'), uploadHandler);
-
-/* GET File. */
-router.get('/file', fileHandler);
 
 module.exports = router;
