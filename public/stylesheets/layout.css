@@ -23,7 +23,6 @@ a {
 	margin: 5px 0;
 }
 .menu .logo, .items {
-	max-height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -31,28 +30,57 @@ a {
 .menu .logo img {
 	max-height: 42px;
 }
+.menu .items button {
+	height: 100%;
+}
 .menu div p {
 	margin: 0;
+}
+.account {
+	display: none;
+	flex-direction: row;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+.account .accountMid {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	z-index: 1;
+}
+.account .accountMid .forms {
+	display: flex;
+	border-radius: 10px;
+	flex-direction: row;
+	justify-content: center;
+	position: relative;
+	overflow: hidden;
+	z-index: 10;
+}
+.account .accountMid .forms .form {
+	width: 50%;
+	background-color: #FFF;
+	box-sizing: border-box;
+	display: inline-block;
+	position: relative;
+	padding: 40px;
+	z-index: 20;
 }
 .wrapper {
 	position: relative;
 	background-color: #60BFBB;
+	/*background-color: rgba(0.3764, 0.7490, 0.7333, 0.5);*/
 	box-shadow: 0 0 1px 0;
 	max-width: 600px;
 	margin: 0 auto;
+	z-index: 0;
 }
 .wrapper > * {
 	padding: 5%;
-}
-.account{
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-} 
-.account .form {
-	width: 50%;
-	box-sizing: border-box;
-}
-.hidden {
-	display: none;
 }

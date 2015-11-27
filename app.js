@@ -64,6 +64,17 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  // JF My home redirector
+  // res.status(404);
+  // res.send(
+  //   'The requested URL is Not Found<br><br>' +
+  //   'You will be redirected to the Index page in 5s' + 
+  //   '<script text=\'javascript\'>setTimeout(function(){' +
+  //     'location.replace(\'/\');' +
+  //   '}, 5000)</script>'
+  // );
+
+  // Original error handler
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
