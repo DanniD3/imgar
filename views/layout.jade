@@ -26,25 +26,25 @@ html(lang='is')
 							h2 Login
 							form(method='post', action='/login')
 								p
-									label(for='usr')
+									label(for='usrLog')
 										| Username: 
-										input(name='usr')#usr
+										input(name='usr')#usrLog
 								p
-									label(for='pwd')
+									label(for='pwdLog')
 										| Password: 
-										input(type='password', name='pwd')#pwd
+										input(type='password', name='pwd')#pwdLog
 								button(type='submit') Login
 						.form.formRegister
 							h2 Register
 							form(method='post', action='/register')
 								p
-									label(for='usr')
+									label(for='usrReg')
 										| Username: 
-										input(name='usr')#usr
+										input(name='usr')#usrReg
 								p
-									label(for='pwd')
+									label(for='pwdReg')
 										| Password: 
-										input(type='password', name='pwd')#pwd
+										input(type='password', name='pwd')#pwdReg
 								button(type='submit') Register
 		.wrapper
 			.content
