@@ -17,7 +17,9 @@ module.exports = function (req, res, next) {
 
   dbManager.get(hashname, function(err, result) {
     var vars = {};
-
+    if (req.session.user) {
+      vars.user = req.session.user.username;
+    }
     if (err) {
       console.log(err);
       vars.err = err;
@@ -26,7 +28,9 @@ module.exports = function (req, res, next) {
     } else {
       vars.buffer = new Buffer(result[0].data)
         .toString('base64');
+      vars.ext = result[0].ext;
     }
+    // HERE NEED TO GRAB ALL COMMENTS
     res.render('file', {
       cssSrc: '/stylesheets/file.css',
       jsSrc: '/javascripts/file.js',

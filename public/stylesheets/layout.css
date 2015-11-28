@@ -30,7 +30,13 @@ a {
 .menu .logo img {
 	max-height: 42px;
 }
-.menu .items button {
+.menu .logo img:active {
+	box-shadow: 0 0 2px 0 inset;
+}
+.menu .items:active {
+	box-shadow: 0 0 2px 0 inset;
+}
+.menu .items p {
 	height: 100%;
 }
 .menu div p {
@@ -58,19 +64,22 @@ a {
 	display: flex;
 	border-radius: 10px;
 	flex-direction: row;
+	background-color: #FFF;
+	box-shadow: 0 0 20px 0 inset;
 	justify-content: center;
 	position: relative;
 	overflow: hidden;
+	padding: 20px;
 	z-index: 10;
 }
 .account .accountMid .forms .form {
 	width: 50%;
-	background-color: #FFF;
+	box-shadow: 0 0 20px 0;
 	box-sizing: border-box;
 	display: inline-block;
 	position: relative;
-	padding: 40px;
-	z-index: 20;
+	padding: 20px;
+	/*z-index: 20;*/
 }
 .wrapper {
 	position: relative;
@@ -79,7 +88,6 @@ a {
 	box-shadow: 0 0 1px 0;
 	max-width: 600px;
 	margin: 0 auto;
-	z-index: 0;
 }
 .wrapper > * {
 	padding: 5%;
