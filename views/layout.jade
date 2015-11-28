@@ -14,7 +14,7 @@ html(lang='is')
 			.items
 				if vars.user
 					p You are logged in as #{vars.user}
-					form(method='get', action='/logout')
+					form(method='post', action='/logout')
 						button(type='submit') Logout
 				else
 					p Login/SignUp
