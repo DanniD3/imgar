@@ -11,7 +11,7 @@ a {
 	color: #00B7FF;
 }
 .menu {
-	max-height: 20%px;
+	max-height: 20%;
 	position: relative;
 	margin-bottom: 10px;
 	display: flex;
@@ -36,8 +36,9 @@ a {
 .menu .items:active {
 	box-shadow: 0 0 2px 0 inset;
 }
-.menu .items p {
-	height: 100%;
+.menu .items > * {
+	/*height: 100%;*/
+	display: inline;
 }
 .menu div p {
 	margin: 0;

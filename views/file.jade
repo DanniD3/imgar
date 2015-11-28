@@ -7,10 +7,21 @@ block content
 	if vars.err
 		p.err= vars.err
 	else
-		h1 Comments
-
+		h2 Comments
+		
+		if vars.comments
+			each comment in vars.comments
+				.comment
+					.author
+						h4=comment.username
+						p=comment.date.toString().split(' ').splice(0, 5).join(' ')
+					p.text=comment.text
 		if vars.user
-			form(method='post')
-			label
-				textarea(name='comment', id='comment', placeholder='Give comment :D')
-			button Submit Comment
+			h3 New Comment
+			form(method='post', action='/comment')
+				p
+					label(for='comment')
+						textarea(name='comment', placeholder='Give comment :D')
+				button(type='submit') Submit Comment
+		else
+			h3 You need to login to make a comment.

@@ -50,6 +50,7 @@ var upload = multer({
 
 var userRoutes = require('../middleware/userRoutes');
 var uploadHandler = require('../middleware/uploadHandler');
+var commentHandler = require('../middleware/commentHandler');
 
 var loginHandler = userRoutes.loginHandler;
 var registerHandler = userRoutes.registerHandler;
@@ -94,9 +95,12 @@ router.post('/login', loginHandler);
 router.post('/register', registerHandler);
 
 /* GET Logout. */
-router.get('/logout', logout);
+router.post('/logout', logout);
 
 /* POST Upload */
 router.post('/upload', upload.single('img'), uploadHandler);
+
+/* POST Comment */
+router.post('/comment', commentHandler);
 
 module.exports = router;

@@ -26,32 +26,27 @@ module.exports = function (req, res, next) {
     } else if (result.length === 0) {
       vars.err = new Error('No such file exists!');
     } else {
+      // Found
       vars.buffer = new Buffer(result[0].data)
         .toString('base64');
       vars.ext = result[0].ext;
+
+      // Grab all comments
+      dbManager.load(hashname, function (err, result) {
+        if (err) {
+          console.log(err);
+          vars.err = err;
+        } else {
+          vars.comments = result;
+        }
+
+        // Finally load page
+        res.render('file', {
+          cssSrc: '/stylesheets/file.css',
+          jsSrc: '/javascripts/file.js',
+          vars: vars
+        });
+      });
     }
-    // HERE NEED TO GRAB ALL COMMENTS
-    res.render('file', {
-      cssSrc: '/stylesheets/file.css',
-      jsSrc: '/javascripts/file.js',
-      vars: vars
-    });
   });
-
-
-  // // JF My home redirector
-  // res.status(404);
-  // res.send(
-  //   'The requested URL is Not Found<br><br>' +
-  //   req.url.substring(1) + '<br>' +
-  //   'You will be redirected to the Index page in 5s' +
-  //   '<script text=\'javascript\'>setTimeout(function(){' +
-  //     'location.replace(\'/\');' +
-  //   '}, 5000)</script>'
-  // );
-
-  // // Original error handler
-  // // var err = new Error('Not Found');
-  // // err.status = 404;
-  // // next(err);
 }

@@ -9,12 +9,12 @@ html(lang='is')
 	body
 		.menu
 			.logo
-				img(src='/images/imgar-logo.png', alt='imgar-logo').logoImg
+				img(src='/images/imgar-logo.PNG', alt='imgar-logo').logoImg
 			h1 Welcome to IMGAR
 			.items
 				if vars.user
 					p You are logged in as #{vars.user}
-					form(method='get', action='/logout')
+					form(method='post', action='/logout')
 						button(type='submit') Logout
 				else
 					p Login/SignUp

@@ -21,13 +21,13 @@ function loginHandler(req, res, next) {
 		if (err) {
 			console.log(err);
 			req.session.err = err;
-			res.redirect('/');
+			res.redirect(xss(req.body.lastUrl));
 		}
 
 		if (user) {
 			req.session.regenerate(function (){
 				req.session.user = user;
-				res.redirect('/');
+				res.redirect(xss(req.body.lastUrl));
 			});
 		}
 	});
@@ -43,20 +43,20 @@ function registerHandler(req, res, next) {
 		if (err || !status) {
 			console.log(err);
 			req.session.err = err;
-			res.redirect('/');
+			res.redirect(xss(req.body.lastUrl));
 		}
 
 		users.auth(usr, pwd, function(err, user) {
 			if (err) {
 				console.log(err);
 				req.session.err = err;
-				res.redirect('/');
+				res.redirect(xss(req.body.lastUrl));
 			}
 
 			if (user) {
 				req.session.regenerate(function (){
 					req.session.user = user;
-					res.redirect('/');
+					res.redirect(xss(req.body.lastUrl));
 				});
 			}
 		});
@@ -66,7 +66,7 @@ function registerHandler(req, res, next) {
 function logout(req, res, next) {
 	/*jshint unused:false*/
 	req.session.destroy(function(){
-		res.redirect('/');
+		res.redirect(xss(req.body.lastUrl));
 	});
 }
 
