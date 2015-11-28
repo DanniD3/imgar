@@ -8,13 +8,20 @@ block content
 		p.err= vars.err
 	else
 		h2 Comments
-
+		
+		if vars.comments
+			each comment in vars.comments
+				.comment
+					.author
+						h4=comment.username
+						p=comment.date.toString().split(' ').splice(0, 5).join(' ')
+					p.text=comment.text
 		if vars.user
 			h3 New Comment
 			form(method='post', action='/comment')
 				p
 					label(for='comment')
-						textarea(name='comment', placeholder='Give comment :D').comment
+						textarea(name='comment', placeholder='Give comment :D')
 				button(type='submit') Submit Comment
 		else
 			h3 You need to login to make a comment.
