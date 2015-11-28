@@ -17,7 +17,9 @@ module.exports = function (req, res, next) {
 
   dbManager.get(hashname, function(err, result) {
     var vars = {};
-
+    if (req.session.user) {
+      vars.user = req.session.user.username;
+    }
     if (err) {
       console.log(err);
       vars.err = err;
