@@ -3,6 +3,6 @@ extends layout
 block content
 	h2 Uploaded File
 	if vars.buffer
-		img(src='data:image/png;base64,#{vars.buffer}')
+		img(src='data:image/#{vars.ext};base64,#{vars.buffer}')
 	if vars.err
 		p.err= vars.err

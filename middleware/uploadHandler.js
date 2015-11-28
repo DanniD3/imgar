@@ -21,8 +21,9 @@ module.exports = function (req, res, next) {
 	}
 	var name = img.originalname.toLowerCase();
 	var data = JSON.stringify(img.buffer);
+	var ext = img.mimetype.split('/')[1];
 
-	dbManager.store(name, data, function(err, hash) {
+	dbManager.store(name, data, ext, function(err, hash) {
 		if (err || !hash) {
 			console.log(err);
 			req.session.err = err;

@@ -27,11 +27,7 @@ var upload = multer({
 		// goes wrong:
 		// cb(new Error('I don\'t have a clue!'))
 
-		if (['jpg', 'jpeg', 'png'].indexOf(
-				file.originalname.split('.')
-				.pop().toLowerCase()
-				) !== -1
-			) {
+		if (file.mimetype.split('/')[0] === 'image') {
 			cb(null, true);
 		}
 		// Don't accept any other formats

@@ -28,6 +28,7 @@ module.exports = function (req, res, next) {
     } else {
       vars.buffer = new Buffer(result[0].data)
         .toString('base64');
+      vars.ext = result[0].ext;
     }
     res.render('file', {
       cssSrc: '/stylesheets/file.css',
