@@ -10,8 +10,11 @@ block content
 		h2 Comments
 
 		if vars.user
+			h3 New Comment
 			form(method='post', action='/comment')
 				p
 					label(for='comment')
 						textarea(name='comment', placeholder='Give comment :D').comment
 				button(type='submit') Submit Comment
+		else
+			h3 You need to login to make a comment.

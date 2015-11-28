@@ -4,3 +4,6 @@
 	position: relative;
 	max-width: 100%;
 }
+.content form p label textarea {
+	width: 100%;
+}
