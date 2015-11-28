@@ -30,6 +30,7 @@ module.exports = function (req, res, next) {
         .toString('base64');
       vars.ext = result[0].ext;
     }
+    // HERE NEED TO GRAB ALL COMMENTS
     res.render('file', {
       cssSrc: '/stylesheets/file.css',
       jsSrc: '/javascripts/file.js',

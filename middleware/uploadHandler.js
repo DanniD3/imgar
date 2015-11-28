@@ -30,9 +30,9 @@ module.exports = function (req, res, next) {
 			res.redirect('/');
 		} else {
 			// Generate link
-			req.session.url = 
-				req.protocol + '://' + req.get('host') +
-				'/' + hash;
+			// req.session.url = 
+			// 	req.protocol + '://' + req.get('host') +
+			// 	'/' + hash;
 			res.redirect('/' + hash);
 		}
 	});
