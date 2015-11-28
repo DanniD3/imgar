@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	// -----------------------------
 	var forms = document.querySelectorAll('form');
 	for (var i = 0; i < forms.length; i++) {
-		var label = document.createElement('label');
-		label.innerHTML = 
-			'<input name=\'lastUrl\' value=\'' +
-			window.location.pathname + '\' hidden/>';
-		forms[i].appendChild(label);
+		var input = document.createElement('input');
+		input.setAttribute('name', 'lastUrl');
+		input.setAttribute('value', 
+			window.location.pathname);
+		input.setAttribute('type', 'hidden');
+		forms[i].appendChild(input);
 	}
 });
