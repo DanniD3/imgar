@@ -4,8 +4,8 @@ html(lang='is')
 		title IMGAR VEF2015
 		link(rel='stylesheet', href='/stylesheets/layout.css')
 		link(rel='stylesheet', href=cssSrc)
-		script(text='javascript', src='/javascripts/layout.js')
-		script(text='javascript', src=jsSrc)
+		script(type='text/javascript', src='/javascripts/layout.js')
+		script(type='text/javascript', src=jsSrc)
 	body
 		.menu
 			.logo
@@ -26,25 +26,25 @@ html(lang='is')
 							h2 Login
 							form(method='post', action='/login')
 								p
-									label(for='usr')
+									label(for='usrLog')
 										| Username: 
-										input(name='usr').usr
+										input(name='usr')#usrLog
 								p
-									label(for='pwd')
+									label(for='pwdLog')
 										| Password: 
-										input(type='password', name='pwd').pwd
+										input(type='password', name='pwd')#pwdLog
 								button(type='submit') Login
 						.form.formRegister
 							h2 Register
 							form(method='post', action='/register')
 								p
-									label(for='usr')
+									label(for='usrReg')
 										| Username: 
-										input(name='usr').usr
+										input(name='usr')#usrReg
 								p
-									label(for='pwd')
+									label(for='pwdReg')
 										| Password: 
-										input(type='password', name='pwd').pwd
+										input(type='password', name='pwd')#pwdReg
 								button(type='submit') Register
 		.wrapper
 			.content
