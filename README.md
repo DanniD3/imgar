@@ -8,7 +8,7 @@ Verkefnið á github má nálgast [hér](https://github.com/DanniD3/imgar)
 
 Við völdum okkur sem lokaverkefni að búa til vefsíðu þar sem notandi getur hlaðið inn mynd og deilt með öðrum. Þegar mynd hefur verið hlaðið inn, birtist deilanlegur hlekkur með myndinni. Hægt er að skrifa athugasemdir við myndir, en það geta einungis notendur gert sem skráðir eru inn.
 
-Verkefnið er í raun byggt á 'Imgur', sem hægt er að skoða [hér](imgur.com)
+Verkefnið er í raun byggt á 'Imgur', sem hægt er að skoða [hér](www.imgur.com)
 
 
 ## Uppsetning
